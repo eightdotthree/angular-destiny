@@ -1,0 +1,145 @@
+<div class="jumbotron">
+
+  <h1>
+    Bungie.net Platform API<br />
+    <small>Angular Service</small>
+  </h1>
+
+
+  <p class="lead">
+    <img src="images/yeoman.png" alt="I'm Yeoman" />
+  </p>
+  <p>
+    <a href="https://www.bungie.net/en/Clan/Post/39966/85087279/0/0">Getting Started</a>, <a href="https://www.bungie.net/platform/destiny/help/">API Documentation</a>
+  </p>
+
+</div>
+
+<div>
+
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th class="col-sm-4">method</th>
+        <th class="col-sm-8">description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <!-- accountSummary -->
+      <tr>
+        <td>
+          <button
+            class="btn btn-primary"
+            click-and-disable="main.accountSummary('1', '4611686018434032983')">
+              accountSummary
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-refresh"></span>
+              <span class="glyphicon glyphicon-remove"></span>
+          </button>
+          <button
+            class="btn btn-link"
+            data-toggle="collapse"
+            data-target="#accountSummaryResponse"
+            ng-if="main.accountSummaryResponse">
+              Toggle response
+          </button>
+        </td>
+        <td>
+          Returns Destiny account information for the supplied membership in a compact summary form.
+        </td>
+      </tr>
+      <tr id="accountSummaryResponse" class="collapse">
+        <td colspan="2">
+          <pre>{{ main.accountSummaryResponse }}</pre>
+        </td>
+      </tr>
+
+      <!-- activityHistory -->
+      <tr>
+        <td>
+          <button
+            class="btn btn-primary"
+            click-and-disable="main.activityHistory('1', '4611686018434032983', '2305843009344925265')">
+              activityHistory
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-refresh"></span>
+              <span class="glyphicon glyphicon-remove"></span>
+          </button>
+          <button
+            class="btn btn-link"
+            data-toggle="collapse"
+            data-target="#activityHistoryResponse"
+            ng-if="main.activityHistoryResponse">
+              Toggle response
+          </button>
+        </td>
+        <td>Gets activity history stats for indicated character.</td>
+      </tr>
+      <tr id="activityHistoryResponse" class="collapse">
+        <td colspan="2">
+          <pre>{{ main.activityHistoryResponse }}</pre>
+        </td>
+      </tr>
+
+      <!-- character -->
+      <tr>
+        <td>
+          <button
+            class="btn btn-primary"
+            click-and-disable="main.character('1', '4611686018434032983', '2305843009344925265')">
+              character
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-refresh"></span>
+              <span class="glyphicon glyphicon-remove"></span>
+          </button>
+          <button
+            class="btn btn-link"
+            data-toggle="collapse"
+            data-target="#characterResponse"
+            ng-if="main.characterResponse">
+              Toggle response
+          </button>
+        </td>
+        <td>Returns a character summary for the supplied membership.</td>
+      </tr>
+      <tr id="characterResponse" class="collapse">
+        <td colspan="2">
+          <pre>{{ main.characterResponse }}</pre>
+        </td>
+      </tr>
+
+      <!-- searchDestinyPlayer -->
+      <tr>
+        <td>
+          <button
+            class="btn btn-primary"
+            click-and-disable="main.searchDestinyPlayer('eightdotthree')"]>
+              searchDestinyPlayer
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-refresh"></span>
+              <span class="glyphicon glyphicon-remove"></span>
+          </button>
+          <button
+            class="btn btn-link"
+            data-toggle="collapse"
+            data-target="#searchDestinyPlayerResponse"
+            ng-if="main.searchDestinyPlayerResponse">
+              Toggle response
+          </button>
+        </td>
+        <td>Returns a list of Destiny memberships given a full Gamertag or PSN ID.</td>
+      </tr>
+      <tr id="searchDestinyPlayerResponse" class="collapse">
+        <td colspan="2">
+          <pre>{{ main.searchDestinyPlayerResponse }}</pre>
+        </td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
