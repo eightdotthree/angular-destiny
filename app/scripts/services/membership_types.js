@@ -12,12 +12,12 @@ angular.module('destinyApp')
         {
             'name':         'psn',
             'displayName':  'PSN',
-            'id':           1
+            'id':           '2'
         },
         {
             'name':         'xbox',
             'displayName':  'Xbox Live',
-            'id':           2
+            'id':           '1'
         }
     ]
 );

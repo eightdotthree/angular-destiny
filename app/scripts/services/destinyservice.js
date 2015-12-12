@@ -71,7 +71,7 @@ angular.module('destinyApp')
          * @description /Stats/ActivityHistory/{membershipType}/{destinyMembershipId}/{characterId}/
          * @returns {Promise}
          */
-        activityHistory: function (membershipType, membershipId, characterId, params) {
+        activityHistory: function (membershipType, membershipId, characterId) {
 
             var params = {
                 mode: 'Story',
@@ -134,6 +134,23 @@ angular.module('destinyApp')
             var _promise = get('SearchDestinyPlayer/' + _membershipType + '/' + destinyPlayer + '/');
 
             return _promise;
+
+        },
+
+        /**
+         * @name getMembershipIdByDisplayName
+         * @description
+         *     /{membershipType}/Stats/GetMembershipIdByDisplayName/{displayName}/
+         *     https://www.bungie.net/platform/destiny/help/HelpDetail/GET?uri=%7bmembershipType%7d%2fStats%2fGetMembershipIdByDisplayName%2f%7bdisplayName%7d%2f
+         * @returns {Promise}
+         */
+        getMembershipIdByDisplayName: function (params) {
+
+            var membershipType = params.membershipType;
+            var displayName = params.displayName;
+
+            var promise = get(membershipType + '/Stats/GetMembershipIdByDisplayName/' + displayName + '/');
+            return promise;
 
         }
 

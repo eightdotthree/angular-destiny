@@ -8,18 +8,46 @@
  * Controller of the destinyApp
  */
 angular.module('destinyApp')
-  .controller('MainCtrl', function (DestinyService) {
+  .controller('MainCtrl', function ($scope, DestinyService, MEMBERSHIP_TYPES) {
 
     var vm = this;
     var logPrefix = 'MainCtrl: ';
     var svc = DestinyService;
 
-    var api = [
-        {
-            method: 'characterStats',
-
+    vm.membershipTypes = MEMBERSHIP_TYPES;
+    vm.membership = {
+        displayName: 'eightdotthree',
+        type: {
+            id: vm.membershipTypes[1].id
         }
-    ];
+    };
+
+    vm.getMembershipId = function () {
+
+        console.group(logPrefix + 'getMembershipId');
+            console.info(vm.membership);
+        console.groupEnd();
+
+        var getMembershipIdByDisplayName = svc.getMembershipIdByDisplayName(
+            {
+                membershipType: vm.membership.type.id,
+                displayName: vm.membership.displayName
+            }
+        );
+
+        getMembershipIdByDisplayName.then(function success (response) {
+
+            console.group(logPrefix + 'getMembershipIdByDisplayName success');
+            console.log(response);
+            console.groupEnd();
+
+            vm.membership.id = response.data.Response;
+
+        });
+
+        return getMembershipIdByDisplayName;
+    };
+
 
     vm.accountSummary = function (params) {
 

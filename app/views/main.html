@@ -1,12 +1,42 @@
 <div class="page-header">
   <h1>Destiny Angular Service</h1>
   <p class="lead">Primarily a learning excercise.</p>
+  <p>
+    Requires cross-origin resource sharing (CORS) to make succesful calls to the API. <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">I use a Chrome extension</a>. API calls are output to the console.
+  </p>
 </div>
 
-<p>Requires cross-origin resource sharing (CORS) to make succesful calls to the API. <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">I use a Chrome extension</a>. API calls are output to the console.</p>
+<div ng-controller="MainCtrl as main">
 
-<div>
+  <form
+    class="form-inline">
 
+    <div class="form-group">
+
+      <select
+        id="membershipType"
+        class="form-control"
+        ng-model="main.membership.type"
+        ng-options="membershipType as membershipType.displayName for membershipType in main.membershipTypes track by membershipType.id">
+
+      </select>
+
+      <div class="input-group">
+        <input
+          id="membershipDisplayName"
+          type="text"
+          class="form-control"
+          placeholder="Gamertag or PSN ID"
+          ng-model="main.membership.displayName" />
+      </div>
+
+    </div>
+
+    <api-test-btn method="main.getMembershipId">Ok</api-test-btn>
+
+  </form>
+
+  <h2>General</h2>
   <table class="table">
 
     <thead>
@@ -17,38 +47,6 @@
     </thead>
 
     <tbody>
-
-      <!-- accountSummary -->
-      <tr>
-        <td>
-          <api-test-btn method="main.accountSummary" params="{ membershipType: '1',  destinyMembershipId: '4611686018434032983' }">
-            accountSummary
-          </api-test-btn>
-        </td>
-        <td>
-          Returns Destiny account information for the supplied membership in a compact summary form.
-        </td>
-      </tr>
-
-      <!-- activityHistory -->
-      <tr>
-        <td>
-          <api-test-btn method="main.activityHistory" params="{ membershipType: '1',  destinyMembershipId: '4611686018434032983', characterId: '2305843009344925265' }">
-            activityHistory
-          </api-test-btn>
-        </td>
-        <td>Gets activity history stats for indicated character.</td>
-      </tr>
-
-      <!-- character -->
-      <tr>
-        <td>
-          <api-test-btn method="main.character" params="{ membershipType: '1',  destinyMembershipId: '4611686018434032983', characterId: '2305843009344925265' }">
-            character
-          </api-test-btn>
-        </td>
-        <td>Returns a character summary for the supplied membership.</td>
-      </tr>
 
       <!-- stats defintion-->
       <tr>
@@ -65,10 +63,66 @@
         </td>
       </tr>
 
-      <!-- character stats -->
+    </tbody>
+
+  </table>
+
+  <h2>Player</h2>
+  <table class="table">
+
+    <thead>
       <tr>
+        <th class="col-sm-4">method</th>
+        <th class="col-sm-8">description</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <!-- accountSummary -->
+      <tr ng-if="main.membership.type.id && main.membership.id">
         <td>
-          <api-test-btn method="main.characterStats" params="{ membershipType: '1',  destinyMembershipId: '4611686018434032983', characterId: '2305843009344925265' }">
+          <api-test-btn method="main.accountSummary" params="{ membershipType: main.membership.type.id, destinyMembershipId: main.membership.id }">
+            accountSummary
+          </api-test-btn>
+        </td>
+        <td>
+          Returns Destiny account information for the supplied membership in a compact summary form.
+          <a href="https://www.bungie.net/platform/destiny/help/HelpDetail/GET?uri=%7bmembershipType%7d%2fAccount%2f%7bdestinyMembershipId%7d%2fSummary%2f">
+            <span class="glyphicon glyphicon-link"></span>
+          </a>
+        </td>
+      </tr>
+
+      <!-- activityHistory -->
+      <tr ng-if="main.membership.type.id && main.membership.id && main.selectedCharacter.id">
+        <td>
+          <api-test-btn method="main.activityHistory" params="{ membershipType: main.membership.type.id, destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }">
+            activityHistory
+          </api-test-btn>
+        </td>
+        <td>
+          Gets activity history stats for indicated character.
+          <a href="https://www.bungie.net/platform/destiny/help/HelpDetail/GET?uri=Stats%2fActivityHistory%2f%7bmembershipType%7d%2f%7bdestinyMembershipId%7d%2f%7bcharacterId%7d%2f">
+            <span class="glyphicon glyphicon-link"></span>
+          </a>
+        </td>
+      </tr>
+
+      <!-- character -->
+      <tr ng-if="main.membership.type.id && main.membership.id && main.selectedCharacter.id">
+        <td>
+          <api-test-btn method="main.character" params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }">
+            character
+          </api-test-btn>
+        </td>
+        <td>Returns a character summary for the supplied membership.</td>
+      </tr>
+
+      <!-- character stats -->
+      <tr ng-if="main.membership.type.id && main.membership.id && main.selectedCharacter.id">
+        <td>
+          <api-test-btn method="main.characterStats" params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }">
             characterStats
           </api-test-btn>
         </td>
@@ -76,9 +130,9 @@
       </tr>
 
       <!-- searchDestinyPlayer -->
-      <tr>
+      <tr ng-if="main.membership.type.id && main.membership.displayName">
         <td>
-          <api-test-btn method="main.searchDestinyPlayer" params="{ destinyPlayer: 'eightdotthree', membershipType: '1' }">
+          <api-test-btn method="main.searchDestinyPlayer" params="{ membershipType: main.membership.type.id, destinyPlayer: main.membership.displayName }">
             searchDestinyPlayer
           </api-test-btn>
         </td>

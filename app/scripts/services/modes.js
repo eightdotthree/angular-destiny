@@ -15,7 +15,7 @@ angular.module('destinyApp')
         RAID:               'Raid',
         ALL_PVP:            'AllPvP',
         PATROL:             'Patrol',
-        ALL_PVP:            'AllPvE',
+        ALL_PVE:            'AllPvE',
         PVP_INTRODUCTION:   'PvPIntroduction',
         THREE_VS_THREE:     'ThreeVsThree',
         CONTROL:            'Control',
