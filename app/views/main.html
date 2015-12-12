@@ -74,7 +74,8 @@
         <!-- stats defintion-->
         <tr>
           <td>
-            <api-test-btn method="main.statsDefinition">
+            <api-test-btn
+              method="main.statsDefinition">
               statsDefinition
             </api-test-btn>
           </td>
@@ -87,9 +88,12 @@
         </tr>
 
         <!-- searchDestinyPlayer -->
-        <tr ng-if="main.membership.type.id && main.membership.displayName">
+        <tr>
           <td>
-            <api-test-btn method="main.searchDestinyPlayer" params="{ membershipType: main.membership.type.id, destinyPlayer: main.membership.displayName }">
+            <api-test-btn
+              method="main.searchDestinyPlayer"
+              params="{ membershipType: main.membership.type.id, destinyPlayer: main.membership.displayName }"
+              ng-disabled="!main.membership.type.id || !main.membership.displayName">
               searchDestinyPlayer
             </api-test-btn>
           </td>
@@ -102,9 +106,12 @@
         </tr>
 
         <!-- accountSummary -->
-        <tr ng-if="main.membership.type.id && main.membership.id">
+        <tr>
           <td>
-            <api-test-btn method="main.accountSummary" params="{ membershipType: main.membership.type.id, destinyMembershipId: main.membership.id }">
+            <api-test-btn
+              method="main.accountSummary"
+              params="{ membershipType: main.membership.type.id, destinyMembershipId: main.membership.id }"
+              ng-disabled="!main.membership.type.id || !main.membership.id">
               accountSummary
             </api-test-btn>
           </td>
@@ -131,10 +138,24 @@
     </div>
 
     <div class="panel-body">
-      <p>Character methods.</p>
+
+      <p>Character methods. Requires a call to <code>accountSummary</code>.</p>
+
+      <form class="form-inline" ng-if="main.account.characters">
+        <div class="form-group">
+          <label for="characters">Choose your character: </label>
+          <select
+            id="characters"
+            class="form-control"
+            ng-model="main.selectedCharacter"
+            ng-options="character as character.name for character in main.characters track by character.characterId">
+          </select>
+        </div>
+      </form>
+
     </div>
 
-    <table class="table" ng-if="main.selectedCharacter.id">
+    <table class="table">
 
       <thead>
         <tr>
@@ -146,9 +167,12 @@
       <tbody>
 
         <!-- activityHistory -->
-        <tr ng-if="main.membership.type.id && main.membership.id && main.selectedCharacter.id">
+        <tr>
           <td>
-            <api-test-btn method="main.activityHistory" params="{ membershipType: main.membership.type.id, destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }">
+            <api-test-btn
+              method="main.activityHistory"
+              params="{ membershipType: main.membership.type.id, destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }"
+              ng-disabled="!main.membership.type.id || !main.membership.id || !main.selectedCharacter.characterId">
               activityHistory
             </api-test-btn>
           </td>
@@ -161,9 +185,12 @@
         </tr>
 
         <!-- character -->
-        <tr ng-if="main.membership.type.id && main.membership.id && main.selectedCharacter.id">
+        <tr>
           <td>
-            <api-test-btn method="main.character" params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }">
+            <api-test-btn
+              method="main.character"
+              params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }"
+              ng-disabled="!main.membership.type.id || !main.membership.id || !main.selectedCharacter.characterId">
               character
             </api-test-btn>
           </td>
@@ -176,9 +203,12 @@
         </tr>
 
         <!-- character stats -->
-        <tr ng-if="main.membership.type.id && main.membership.id && main.selectedCharacter.id">
+        <tr>
           <td>
-            <api-test-btn method="main.characterStats" params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }">
+            <api-test-btn
+              method="main.characterStats"
+              params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }"
+              ng-disabled="!main.membership.type.id || !main.membership.id || !main.selectedCharacter.characterId">
               characterStats
             </api-test-btn>
           </td>

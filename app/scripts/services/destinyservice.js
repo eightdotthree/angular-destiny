@@ -60,9 +60,8 @@ angular.module('destinyApp')
         accountSummary: function (membershipType, destinyMembershipId) {
 
             var _membershipType = getMembershipType(membershipType);
-            var _promise = get(_membershipType + '/Account/' + destinyMembershipId + '/Summary/');
-
-            return _promise;
+            var promise = get(_membershipType + '/Account/' + destinyMembershipId + '/Summary/');
+            return promise;
 
         },
 

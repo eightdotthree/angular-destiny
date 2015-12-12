@@ -8,7 +8,7 @@
  * Controller of the destinyApp
  */
 angular.module('destinyApp')
-  .controller('MainCtrl', function ($scope, DestinyService, MEMBERSHIP_TYPES) {
+  .controller('MainCtrl', function ($scope, DestinyService, MEMBERSHIP_TYPES, CLASS_TYPES) {
 
     var vm = this;
     var logPrefix = 'MainCtrl: ';
@@ -21,6 +21,20 @@ angular.module('destinyApp')
             id: vm.membershipTypes[1].id
         }
     };
+
+    vm.selectedCharacter = {};
+    vm.characters = {};
+    vm.account = {};
+
+    function getClassName (id) {
+        for (var i = 0; i < CLASS_TYPES.length; i++) {
+            var classType = CLASS_TYPES[i];
+            if (classType.id === id) {
+                return classType.name;
+            }
+        }
+        return null;
+    }
 
     vm.getMembershipId = function () {
 
@@ -38,7 +52,7 @@ angular.module('destinyApp')
         getMembershipIdByDisplayName.then(function success (response) {
 
             console.group(logPrefix + 'getMembershipIdByDisplayName success');
-            console.log(response);
+                console.log(response);
             console.groupEnd();
 
             vm.membership.id = response.data.Response;
@@ -52,17 +66,30 @@ angular.module('destinyApp')
     vm.accountSummary = function (params) {
 
         console.group(logPrefix + 'accountSummary');
-        console.info('membershipType: ' + params.membershipType);
-        console.info('destinyMembershipId: ' + params.destinyMembershipId);
+            console.info('membershipType: ' + params.membershipType);
+            console.info('destinyMembershipId: ' + params.destinyMembershipId);
         console.groupEnd();
 
         var accountSummary = svc.accountSummary(params.membershipType, params.destinyMembershipId);
         accountSummary.then(function successCallback (response) {
 
             console.group(logPrefix + 'accountSummary successCallback');
-            console.log(response);
-            vm.accountSummaryResponse = angular.toJson(response, true);
+                console.info(response);
             console.groupEnd();
+
+            vm.account = response.data.Response.data;
+            vm.characters = [];
+
+            for (var i = 0; i < vm.account.characters.length; i++) {
+                var value = vm.account.characters[i];
+                var character = {
+                    characterId: value.characterBase.characterId,
+                    name: getClassName(value.characterBase.classType) + ' — ' + value.characterLevel + ' — ' + value.characterBase.powerLevel
+                };
+                vm.characters.push(character);
+            }
+
+            vm.selectedCharacter = vm.characters[0];
 
         });
 
