@@ -8,14 +8,16 @@
  * Constant in the destinyApp.
  */
 angular.module('destinyApp')
-  .constant('MEMBERSHIPTYPES', [
+  .constant('MEMBERSHIP_TYPES', [
         {
-            'name':     'psn',
-            'id':       1
+            'name':         'psn',
+            'displayName':  'PSN',
+            'id':           1
         },
         {
-            'name':     'xbox',
-            'id':       2
+            'name':         'xbox',
+            'displayName':  'Xbox Live',
+            'id':           2
         }
     ]
 );
