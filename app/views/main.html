@@ -1,19 +1,9 @@
-<div class="jumbotron">
-
-  <h1>
-    Bungie.net Platform API<br />
-    <small>Angular Service</small>
-  </h1>
-
-
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman" />
-  </p>
-  <p>
-    <a href="https://www.bungie.net/en/Clan/Post/39966/85087279/0/0">Getting Started</a>, <a href="https://www.bungie.net/platform/destiny/help/">API Documentation</a>
-  </p>
-
+<div class="page-header">
+  <h1>Destiny Angular Service</h1>
+  <p class="lead">Primarily a learning excercise.</p>
 </div>
+
+<p>Requires cross-origin resource sharing (CORS) to make succesful calls to the API. <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">I use a Chrome extension</a>. API calls are output to the console.</p>
 
 <div>
 
@@ -31,165 +21,68 @@
       <!-- accountSummary -->
       <tr>
         <td>
-          <button
-            class="btn btn-primary"
-            click-and-disable="main.accountSummary('1', '4611686018434032983')">
-              accountSummary
-              <span class="glyphicon glyphicon-ok"></span>
-              <span class="glyphicon glyphicon-refresh"></span>
-              <span class="glyphicon glyphicon-remove"></span>
-          </button>
-          <button
-            class="btn btn-link"
-            data-toggle="collapse"
-            data-target="#accountSummaryResponse"
-            ng-if="main.accountSummaryResponse">
-              Toggle response
-          </button>
+          <api-test-btn method="main.accountSummary" params="{ membershipType: '1',  destinyMembershipId: '4611686018434032983' }">
+            accountSummary
+          </api-test-btn>
         </td>
         <td>
           Returns Destiny account information for the supplied membership in a compact summary form.
-        </td>
-      </tr>
-      <tr id="accountSummaryResponse" class="collapse">
-        <td colspan="2">
-          <pre>{{ main.accountSummaryResponse }}</pre>
         </td>
       </tr>
 
       <!-- activityHistory -->
       <tr>
         <td>
-          <button
-            class="btn btn-primary"
-            click-and-disable="main.activityHistory('1', '4611686018434032983', '2305843009344925265')">
-              activityHistory
-              <span class="glyphicon glyphicon-ok"></span>
-              <span class="glyphicon glyphicon-refresh"></span>
-              <span class="glyphicon glyphicon-remove"></span>
-          </button>
-          <button
-            class="btn btn-link"
-            data-toggle="collapse"
-            data-target="#activityHistoryResponse"
-            ng-if="main.activityHistoryResponse">
-              Toggle response
-          </button>
+          <api-test-btn method="main.activityHistory" params="{ membershipType: '1',  destinyMembershipId: '4611686018434032983', characterId: '2305843009344925265' }">
+            activityHistory
+          </api-test-btn>
         </td>
         <td>Gets activity history stats for indicated character.</td>
-      </tr>
-      <tr id="activityHistoryResponse" class="collapse">
-        <td colspan="2">
-          <pre>{{ main.activityHistoryResponse }}</pre>
-        </td>
       </tr>
 
       <!-- character -->
       <tr>
         <td>
-          <button
-            class="btn btn-primary"
-            click-and-disable="main.character('1', '4611686018434032983', '2305843009344925265')">
-              character
-              <span class="glyphicon glyphicon-ok"></span>
-              <span class="glyphicon glyphicon-refresh"></span>
-              <span class="glyphicon glyphicon-remove"></span>
-          </button>
-          <button
-            class="btn btn-link"
-            data-toggle="collapse"
-            data-target="#characterResponse"
-            ng-if="main.characterResponse">
-              Toggle response
-          </button>
+          <api-test-btn method="main.character" params="{ membershipType: '1',  destinyMembershipId: '4611686018434032983', characterId: '2305843009344925265' }">
+            character
+          </api-test-btn>
         </td>
         <td>Returns a character summary for the supplied membership.</td>
-      </tr>
-      <tr id="characterResponse" class="collapse">
-        <td colspan="2">
-          <pre>{{ main.characterResponse }}</pre>
-        </td>
       </tr>
 
       <!-- stats defintion-->
       <tr>
         <td>
-          <button
-            class="btn btn-primary"
-            click-and-disable="main.statsDefinition()">
-              statsDefinition
-              <span class="glyphicon glyphicon-ok"></span>
-              <span class="glyphicon glyphicon-refresh"></span>
-              <span class="glyphicon glyphicon-remove"></span>
-          </button>
-          <button
-            class="btn btn-link"
-            data-toggle="collapse"
-            data-target="#statsDefinitionResponse"
-            ng-if="main.statsDefinitionResponse">
-              Toggle response
-          </button>
+          <api-test-btn method="main.statsDefinition">
+            statsDefinition
+          </api-test-btn>
         </td>
-        <td>Gets historical stats for indicated character.</td>
-      </tr>
-      <tr id="statsDefinitionResponse" class="collapse">
-        <td colspan="2">
-          <pre>{{ main.statsDefinitionResponse }}</pre>
+        <td>
+          Gets historical stats definitions.
+          <a href="https://www.bungie.net/platform/destiny/help/HelpDetail/GET?uri=Stats%2fDefinition%2f">
+            <span class="glyphicon glyphicon-link"></span>
+          </a>
         </td>
       </tr>
 
       <!-- character stats -->
       <tr>
         <td>
-          <button
-            class="btn btn-primary"
-            click-and-disable="main.characterStats('1', '4611686018434032983', '2305843009344925265')">
-              characterStats
-              <span class="glyphicon glyphicon-ok"></span>
-              <span class="glyphicon glyphicon-refresh"></span>
-              <span class="glyphicon glyphicon-remove"></span>
-          </button>
-          <button
-            class="btn btn-link"
-            data-toggle="collapse"
-            data-target="#characterStatsResponse"
-            ng-if="main.characterStatsResponse">
-              Toggle response
-          </button>
+          <api-test-btn method="main.characterStats" params="{ membershipType: '1',  destinyMembershipId: '4611686018434032983', characterId: '2305843009344925265' }">
+            characterStats
+          </api-test-btn>
         </td>
         <td>Gets historical stats for indicated character.</td>
-      </tr>
-      <tr id="characterStatsResponse" class="collapse">
-        <td colspan="2">
-          <pre>{{ main.characterStatsResponse }}</pre>
-        </td>
       </tr>
 
       <!-- searchDestinyPlayer -->
       <tr>
         <td>
-          <button
-            class="btn btn-primary"
-            click-and-disable="main.searchDestinyPlayer('eightdotthree')"]>
-              searchDestinyPlayer
-              <span class="glyphicon glyphicon-ok"></span>
-              <span class="glyphicon glyphicon-refresh"></span>
-              <span class="glyphicon glyphicon-remove"></span>
-          </button>
-          <button
-            class="btn btn-link"
-            data-toggle="collapse"
-            data-target="#searchDestinyPlayerResponse"
-            ng-if="main.searchDestinyPlayerResponse">
-              Toggle response
-          </button>
+          <api-test-btn method="main.searchDestinyPlayer" params="{ destinyPlayer: 'eightdotthree', membershipType: '1' }">
+            searchDestinyPlayer
+          </api-test-btn>
         </td>
         <td>Returns a list of Destiny memberships given a full Gamertag or PSN ID.</td>
-      </tr>
-      <tr id="searchDestinyPlayerResponse" class="collapse">
-        <td colspan="2">
-          <pre>{{ main.searchDestinyPlayerResponse }}</pre>
-        </td>
       </tr>
 
     </tbody>
