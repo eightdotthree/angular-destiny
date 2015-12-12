@@ -43,7 +43,7 @@ angular.module('destinyApp')
          */
         element.bind('click', function() {
 
-          element.addClass('is-loading');
+          element.addClass('is-loading').removeClass('is-not-ok').removeClass('btn-danger');
           element.prop('disabled', true);
 
           scope.method(scope.params).then(_then).finally(_finally);
