@@ -21,14 +21,14 @@ angular.module('destinyApp')
         }
     ];
 
-    vm.accountSummary = function (membershipType, membershipId) {
+    vm.accountSummary = function (params) {
 
         console.group(logPrefix + 'accountSummary');
-        console.info('membershipType: ' + membershipType);
-        console.info('membershipId: ' + membershipId);
+        console.info('membershipType: ' + params.membershipType);
+        console.info('destinyMembershipId: ' + params.destinyMembershipId);
         console.groupEnd();
 
-        var accountSummary = svc.accountSummary(membershipType, membershipId);
+        var accountSummary = svc.accountSummary(params.membershipType, params.destinyMembershipId);
         accountSummary.then(function successCallback (response) {
 
             console.group(logPrefix + 'accountSummary successCallback');
@@ -42,15 +42,15 @@ angular.module('destinyApp')
 
     };
 
-    vm.activityHistory = function (membershipType, membershipId, characterId) {
+    vm.activityHistory = function (params) {
 
         console.group(logPrefix + 'activityHistory');
-        console.info('membershipType: ' + membershipType);
-        console.info('membershipId: ' + membershipId);
-        console.info('characterId: ' + characterId);
+        console.info('membershipType: ' + params.membershipType);
+        console.info('membershipId: ' + params.destinyMembershipId);
+        console.info('characterId: ' + params.characterId);
         console.groupEnd();
 
-        var activityHistory = svc.activityHistory(membershipType, membershipId, characterId);
+        var activityHistory = svc.activityHistory(params.membershipType, params.destinyMembershipId, params.characterId);
         activityHistory.then(function successCallback (response) {
 
             console.group(logPrefix + 'activityHistory successCallback');
@@ -83,15 +83,15 @@ angular.module('destinyApp')
 
     };
 
-    vm.characterStats = function (membershipType, membershipId, characterId) {
+    vm.characterStats = function (params) {
 
         console.group(logPrefix + 'characterStats');
-        console.info('membershipType: ' + membershipType);
-        console.info('membershipId: ' + membershipId);
-        console.info('characterId: ' + characterId);
+        console.info('membershipType: ' + params.membershipType);
+        console.info('membershipId: ' + params.destinyMembershipId);
+        console.info('characterId: ' + params.characterId);
         console.groupEnd();
 
-        var characterStats = svc.characterStats(membershipType, membershipId, characterId);
+        var characterStats = svc.characterStats(params.membershipType, params.destinyMembershipId, params.characterId);
         characterStats.then(function successCallback (response) {
 
             console.group(logPrefix + 'characterStats successCallback');
@@ -105,15 +105,15 @@ angular.module('destinyApp')
 
     };
 
-    vm.character = function (membershipType, membershipId, characterId) {
+    vm.character = function (params) {
 
-        console.group(logPrefix + 'accountSummary');
-        console.info('membershipType: ' + membershipType);
-        console.info('membershipId: ' + membershipId);
-        console.info('characterId: ' + characterId);
+        console.group(logPrefix + 'character');
+        console.info('membershipType: ' + params.membershipType);
+        console.info('membershipId: ' + params.destinyMembershipId);
+        console.info('characterId: ' + params.characterId);
         console.groupEnd();
 
-        var character = svc.character(membershipType, membershipId, characterId);
+        var character = svc.character(params.membershipType, params.destinyMembershipId, params.characterId);
         character.then(function successCallback (response) {
 
             console.group(logPrefix + 'character successCallback');
@@ -127,13 +127,13 @@ angular.module('destinyApp')
 
     };
 
-    vm.searchDestinyPlayer = function (destinyPlayer) {
+    vm.searchDestinyPlayer = function (params) {
 
         console.group(logPrefix + 'searchDestinyPlayer');
-        console.info('destinyPlayer: ' + destinyPlayer);
+        console.info('destinyPlayer: ' + params.destinyPlayer);
         console.groupEnd();
 
-        var searchDestinyPlayer = svc.searchDestinyPlayer(destinyPlayer);
+        var searchDestinyPlayer = svc.searchDestinyPlayer(params.destinyPlayer);
         searchDestinyPlayer.then(function successCallback (response) {
 
             console.group(logPrefix + 'searchDestinyPlayer successCallback');
