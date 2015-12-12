@@ -14,7 +14,12 @@ angular.module('destinyApp')
     var logPrefix = 'MainCtrl: ';
     var svc = DestinyService;
 
-    console.log(logPrefix + 'initialized');
+    var api = [
+        {
+            method: 'characterStats',
+
+        }
+    ];
 
     vm.accountSummary = function (membershipType, membershipId) {
 
@@ -56,6 +61,47 @@ angular.module('destinyApp')
         });
 
         return activityHistory;
+
+    };
+
+    vm.statsDefinition = function () {
+
+        console.group(logPrefix + 'statsDefinition');
+        console.groupEnd();
+
+        var statsDefinition = svc.statsDefinition();
+        statsDefinition.then(function successCallback (response) {
+
+            console.group(logPrefix + 'statsDefinition successCallback');
+            console.log(response);
+            vm.statsDefinitionResponse = angular.toJson(response, true);
+            console.groupEnd();
+
+        });
+
+        return statsDefinition;
+
+    };
+
+    vm.characterStats = function (membershipType, membershipId, characterId) {
+
+        console.group(logPrefix + 'characterStats');
+        console.info('membershipType: ' + membershipType);
+        console.info('membershipId: ' + membershipId);
+        console.info('characterId: ' + characterId);
+        console.groupEnd();
+
+        var characterStats = svc.characterStats(membershipType, membershipId, characterId);
+        characterStats.then(function successCallback (response) {
+
+            console.group(logPrefix + 'characterStats successCallback');
+            console.log(response);
+            vm.characterStatsResponse = angular.toJson(response, true);
+            console.groupEnd();
+
+        });
+
+        return characterStats;
 
     };
 

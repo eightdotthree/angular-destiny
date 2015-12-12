@@ -111,6 +111,60 @@
         </td>
       </tr>
 
+      <!-- stats defintion-->
+      <tr>
+        <td>
+          <button
+            class="btn btn-primary"
+            click-and-disable="main.statsDefinition()">
+              statsDefinition
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-refresh"></span>
+              <span class="glyphicon glyphicon-remove"></span>
+          </button>
+          <button
+            class="btn btn-link"
+            data-toggle="collapse"
+            data-target="#statsDefinitionResponse"
+            ng-if="main.statsDefinitionResponse">
+              Toggle response
+          </button>
+        </td>
+        <td>Gets historical stats for indicated character.</td>
+      </tr>
+      <tr id="statsDefinitionResponse" class="collapse">
+        <td colspan="2">
+          <pre>{{ main.statsDefinitionResponse }}</pre>
+        </td>
+      </tr>
+
+      <!-- character stats -->
+      <tr>
+        <td>
+          <button
+            class="btn btn-primary"
+            click-and-disable="main.characterStats('1', '4611686018434032983', '2305843009344925265')">
+              characterStats
+              <span class="glyphicon glyphicon-ok"></span>
+              <span class="glyphicon glyphicon-refresh"></span>
+              <span class="glyphicon glyphicon-remove"></span>
+          </button>
+          <button
+            class="btn btn-link"
+            data-toggle="collapse"
+            data-target="#characterStatsResponse"
+            ng-if="main.characterStatsResponse">
+              Toggle response
+          </button>
+        </td>
+        <td>Gets historical stats for indicated character.</td>
+      </tr>
+      <tr id="characterStatsResponse" class="collapse">
+        <td colspan="2">
+          <pre>{{ main.characterStatsResponse }}</pre>
+        </td>
+      </tr>
+
       <!-- searchDestinyPlayer -->
       <tr>
         <td>
