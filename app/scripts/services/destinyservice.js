@@ -85,14 +85,14 @@ angular.module('destinyApp')
         },
 
         /**
-         * @name character
+         * @name characterSummary
          * @description /{membershipType}/Account/{destinyMembershipId}/Character/{characterId}/
          * @param  {String} membershipType A valid non-BungieNet membership type.
          * @param  {String} membershipId   The Destiny membershipId of the user to retrieve.
          * @param  {String} characterId    The id of the character to retrieve.
          * @return {Promise}               [description]
          */
-        character: function (membershipType, membershipId, characterId) {
+        characterSummary: function (membershipType, membershipId, characterId) {
 
             var _membershipType = getMembershipType(membershipType);
             var _promise = get(_membershipType + '/Account/' + membershipId + '/Character/' + characterId + '/');

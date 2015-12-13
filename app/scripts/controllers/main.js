@@ -160,25 +160,25 @@ angular.module('destinyApp')
 
     };
 
-    vm.character = function (params) {
+    vm.characterSummary = function (params) {
 
-        console.group(logPrefix + 'character');
+        console.group(logPrefix + 'characterSummary');
         console.info('membershipType: ' + params.membershipType);
         console.info('membershipId: ' + params.destinyMembershipId);
         console.info('characterId: ' + params.characterId);
         console.groupEnd();
 
-        var character = svc.character(params.membershipType, params.destinyMembershipId, params.characterId);
-        character.then(function successCallback (response) {
+        var characterSummary = svc.characterSummary(params.membershipType, params.destinyMembershipId, params.characterId);
+        characterSummary.then(function successCallback (response) {
 
-            console.group(logPrefix + 'character successCallback');
+            console.group(logPrefix + 'characterSummary successCallback');
             console.log(response);
             vm.characterResponse = angular.toJson(response, true);
             console.groupEnd();
 
         });
 
-        return character;
+        return characterSummary;
 
     };
 

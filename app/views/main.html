@@ -4,6 +4,18 @@
   <p>
     Requires cross-origin resource sharing (CORS) to make succesful calls to the API. <a href="https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi">I use a Chrome extension</a>. API calls are output to the console.
   </p>
+  <ul>
+    <li>
+      <a href="https://www.bungie.net/en/Clan/Forum/39966">
+        BungieNet Platform Forum
+      </a>
+    </li>
+    <li>
+      <a href="https://www.bungie.net/platform/destiny/help/">
+        BungieNet.Platform Service Documentation
+      </a>
+    </li>
+  </li>
 </div>
 
 <div ng-controller="MainCtrl as main">
@@ -188,10 +200,10 @@
         <tr>
           <td>
             <api-test-btn
-              method="main.character"
+              method="main.characterSummary"
               params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }"
               ng-disabled="!main.membership.type.id || !main.membership.id || !main.selectedCharacter.characterId">
-              character
+              characterSummary
             </api-test-btn>
           </td>
           <td>
