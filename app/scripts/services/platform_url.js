@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc service
- * @name destinyApp.PLATFORMURL
+ * @name destinyApp.PLATFORM_URL
  * @description
- * # PLATFORMURL
+ * # PLATFORM_URL
  * Constant in the destinyApp.
  */
 angular.module('destinyApp')
-  .constant('PLATFORMURL', '//www.bungie.net/Platform/Destiny/');
+  .constant('PLATFORM_URL', '//www.bungie.net/Platform/Destiny/');
