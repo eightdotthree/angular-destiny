@@ -24,7 +24,8 @@ angular.module('destinyApp')
          * @param  {Object} response
          */
         function _then (response) {
-          if (response.data.ErrorCode === 1) {
+
+          if (response.ErrorCode === 1) {
             element.addClass('is-ok').addClass('btn-success').removeClass('is-loading');
           } else {
             element.addClass('is-not-ok').addClass('btn-danger').removeClass('is-loading');

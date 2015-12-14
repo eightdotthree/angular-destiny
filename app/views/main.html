@@ -15,6 +15,16 @@
         BungieNet.Platform Service Documentation
       </a>
     </li>
+    <li>
+      <a href="http://bungienetplatform.wikia.com/wiki/Category:DestinyService">
+        DestinyService on Wikia
+      </a>
+    </li>
+    <li>
+      <a href="http://bungienetplatform.wikia.com/wiki/Category:DestinyService">
+        DestinyService on Wikia
+      </a>
+    </li>
   </li>
 </div>
 
@@ -104,7 +114,6 @@
           <td>
             <api-test-btn
               method="main.searchDestinyPlayer"
-              params="{ membershipType: main.membership.type.id, destinyPlayer: main.membership.displayName }"
               ng-disabled="!main.membership.type.id || !main.membership.displayName">
               searchDestinyPlayer
             </api-test-btn>
@@ -122,7 +131,6 @@
           <td>
             <api-test-btn
               method="main.accountSummary"
-              params="{ membershipType: main.membership.type.id, destinyMembershipId: main.membership.id }"
               ng-disabled="!main.membership.type.id || !main.membership.id">
               accountSummary
             </api-test-btn>
@@ -151,7 +159,7 @@
 
     <div class="panel-body">
 
-      <p>Character methods. Requires a call to <code>accountSummary</code>.</p>
+      <p>Character methods. Requires a call to <code>accountSummary</code> to get a list of characters.</p>
 
       <form class="form-inline" ng-if="main.account.characters">
         <div class="form-group">
@@ -182,10 +190,9 @@
         <tr>
           <td>
             <api-test-btn
-              method="main.activityHistory"
-              params="{ membershipType: main.membership.type.id, destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }"
+              method="main.characterActivityHistory"
               ng-disabled="!main.membership.type.id || !main.membership.id || !main.selectedCharacter.characterId">
-              activityHistory
+              characterActivityHistory
             </api-test-btn>
           </td>
           <td>
@@ -201,7 +208,6 @@
           <td>
             <api-test-btn
               method="main.characterSummary"
-              params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }"
               ng-disabled="!main.membership.type.id || !main.membership.id || !main.selectedCharacter.characterId">
               characterSummary
             </api-test-btn>
@@ -219,7 +225,6 @@
           <td>
             <api-test-btn
               method="main.characterStats"
-              params="{ membershipType: main.membership.type.id,  destinyMembershipId: main.membership.id, characterId: '2305843009344925265' }"
               ng-disabled="!main.membership.type.id || !main.membership.id || !main.selectedCharacter.characterId">
               characterStats
             </api-test-btn>

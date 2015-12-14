@@ -10,22 +10,27 @@
 angular.module('destinyApp')
   .controller('MainCtrl', function ($scope, DestinyService, MEMBERSHIP_TYPES, CLASS_TYPES) {
 
-    var vm = this;
     var logPrefix = 'MainCtrl: ';
+    var vm = this;
     var svc = DestinyService;
 
     vm.membershipTypes = MEMBERSHIP_TYPES;
     vm.membership = {
         displayName: 'eightdotthree',
+        id: null,
         type: {
             id: vm.membershipTypes[1].id
         }
     };
-
-    vm.selectedCharacter = {};
+    vm.selectedCharacter = {
+        characterId: null
+    };
     vm.characters = {};
     vm.account = {};
 
+    /**
+     *
+     */
     function getClassName (id) {
         for (var i = 0; i < CLASS_TYPES.length; i++) {
             var classType = CLASS_TYPES[i];
@@ -36,48 +41,47 @@ angular.module('destinyApp')
         return null;
     }
 
+    /**
+     *
+     */
+
     vm.getMembershipId = function () {
 
         console.group(logPrefix + 'getMembershipId');
-            console.info(vm.membership);
+            console.info('membershipType: ' + vm.membership.type.id);
+            console.info('displayName: ' + vm.membership.displayName);
         console.groupEnd();
 
-        var getMembershipIdByDisplayName = svc.getMembershipIdByDisplayName(
-            {
-                membershipType: vm.membership.type.id,
-                displayName: vm.membership.displayName
-            }
-        );
-
-        getMembershipIdByDisplayName.then(function success (response) {
+        var getMembershipIdByDisplayName = svc.getMembershipIdByDisplayName(vm.membership.type.id, vm.membership.displayName);
+        getMembershipIdByDisplayName.then(function success (data) {
 
             console.group(logPrefix + 'getMembershipIdByDisplayName success');
-                console.log(response);
+                console.log(data);
             console.groupEnd();
 
-            vm.membership.id = response.data.Response;
+            vm.membership.id = data.Response;
 
         });
 
         return getMembershipIdByDisplayName;
+
     };
 
-
-    vm.accountSummary = function (params) {
+    vm.accountSummary = function () {
 
         console.group(logPrefix + 'accountSummary');
-            console.info('membershipType: ' + params.membershipType);
-            console.info('destinyMembershipId: ' + params.destinyMembershipId);
+            console.info('membershipType: ' + vm.membership.type.id);
+            console.info('destinyMembershipId: ' + vm.membership.id);
         console.groupEnd();
 
-        var accountSummary = svc.accountSummary(params.membershipType, params.destinyMembershipId);
-        accountSummary.then(function successCallback (response) {
+        var accountSummary = svc.accountSummary(vm.membership.type.id, vm.membership.id);
+        accountSummary.then(function success (data) {
 
-            console.group(logPrefix + 'accountSummary successCallback');
-                console.info(response);
+            console.group(logPrefix + 'accountSummary success');
+                console.info(data);
             console.groupEnd();
 
-            vm.account = response.data.Response.data;
+            vm.account = data.Response.data;
             vm.characters = [];
 
             for (var i = 0; i < vm.account.characters.length; i++) {
@@ -97,39 +101,16 @@ angular.module('destinyApp')
 
     };
 
-    vm.activityHistory = function (params) {
-
-        console.group(logPrefix + 'activityHistory');
-        console.info('membershipType: ' + params.membershipType);
-        console.info('membershipId: ' + params.destinyMembershipId);
-        console.info('characterId: ' + params.characterId);
-        console.groupEnd();
-
-        var activityHistory = svc.activityHistory(params.membershipType, params.destinyMembershipId, params.characterId);
-        activityHistory.then(function successCallback (response) {
-
-            console.group(logPrefix + 'activityHistory successCallback');
-            console.log(response);
-            vm.activityHistoryResponse = angular.toJson(response, true);
-            console.groupEnd();
-
-        });
-
-        return activityHistory;
-
-    };
-
     vm.statsDefinition = function () {
 
         console.group(logPrefix + 'statsDefinition');
         console.groupEnd();
 
         var statsDefinition = svc.statsDefinition();
-        statsDefinition.then(function successCallback (response) {
+        statsDefinition.then(function success (data) {
 
-            console.group(logPrefix + 'statsDefinition successCallback');
-            console.log(response);
-            vm.statsDefinitionResponse = angular.toJson(response, true);
+            console.group(logPrefix + 'statsDefinition success');
+            console.log(data);
             console.groupEnd();
 
         });
@@ -138,42 +119,22 @@ angular.module('destinyApp')
 
     };
 
-    vm.characterStats = function (params) {
 
-        console.group(logPrefix + 'characterStats');
-        console.info('membershipType: ' + params.membershipType);
-        console.info('membershipId: ' + params.destinyMembershipId);
-        console.info('characterId: ' + params.characterId);
-        console.groupEnd();
 
-        var characterStats = svc.characterStats(params.membershipType, params.destinyMembershipId, params.characterId);
-        characterStats.then(function successCallback (response) {
-
-            console.group(logPrefix + 'characterStats successCallback');
-            console.log(response);
-            vm.characterStatsResponse = angular.toJson(response, true);
-            console.groupEnd();
-
-        });
-
-        return characterStats;
-
-    };
-
-    vm.characterSummary = function (params) {
+    vm.characterSummary = function () {
 
         console.group(logPrefix + 'characterSummary');
-        console.info('membershipType: ' + params.membershipType);
-        console.info('membershipId: ' + params.destinyMembershipId);
-        console.info('characterId: ' + params.characterId);
+            console.info('membershipType: ' + vm.membership.type.id);
+            console.info('membershipId: ' + vm.membership.id);
+            console.info('characterId: ' + vm.selectedCharacter.characterId);
         console.groupEnd();
 
-        var characterSummary = svc.characterSummary(params.membershipType, params.destinyMembershipId, params.characterId);
-        characterSummary.then(function successCallback (response) {
+        var characterSummary = svc.characterSummary(vm.membership.type.id, vm.membership.id, vm.selectedCharacter.characterId);
 
-            console.group(logPrefix + 'characterSummary successCallback');
-            console.log(response);
-            vm.characterResponse = angular.toJson(response, true);
+        characterSummary.then(function success (data) {
+
+            console.group(logPrefix + 'characterSummary success');
+                console.log(data);
             console.groupEnd();
 
         });
@@ -182,18 +143,59 @@ angular.module('destinyApp')
 
     };
 
+    vm.characterStats = function () {
+
+        console.group(logPrefix + 'characterStats');
+            console.info('membershipType: ' + vm.membership.type.id);
+            console.info('membershipId: ' + vm.membership.id);
+            console.info('characterId: ' + vm.selectedCharacter.characterId);
+        console.groupEnd();
+
+        var characterStats = svc.characterStats(vm.membership.type.id, vm.membership.id, vm.selectedCharacter.characterId);
+        characterStats.then(function success (data) {
+
+            console.group(logPrefix + 'characterStats success');
+            console.log(data);
+            console.groupEnd();
+
+        });
+
+        return characterStats;
+
+    };
+
+    vm.characterActivityHistory = function () {
+
+        console.group(logPrefix + 'characterActivityHistory');
+            console.info('membershipType: ' + vm.membership.type.id);
+            console.info('membershipId: ' + vm.membership.id);
+            console.info('characterId: ' + vm.selectedCharacter.characterId);
+        console.groupEnd();
+
+        var characterActivityHistory = svc.characterActivityHistory(vm.membership.type.id, vm.membership.id, vm.selectedCharacter.characterId);
+        characterActivityHistory.then(function success (data) {
+
+            console.group(logPrefix + 'characterActivityHistory success');
+            console.log(data);
+            console.groupEnd();
+
+        });
+
+        return characterActivityHistory;
+
+    };
+
     vm.searchDestinyPlayer = function (params) {
 
         console.group(logPrefix + 'searchDestinyPlayer');
-        console.info('destinyPlayer: ' + params.destinyPlayer);
+            console.info('destinyPlayer: ' + params.destinyPlayer);
         console.groupEnd();
 
         var searchDestinyPlayer = svc.searchDestinyPlayer(params.destinyPlayer);
-        searchDestinyPlayer.then(function successCallback (response) {
+        searchDestinyPlayer.then(function success (data) {
 
-            console.group(logPrefix + 'searchDestinyPlayer successCallback');
-            console.log(response);
-            vm.searchDestinyPlayerResponse = angular.toJson(response, true);
+            console.group(logPrefix + 'searchDestinyPlayer success');
+                console.log(data);
             console.groupEnd();
 
         });

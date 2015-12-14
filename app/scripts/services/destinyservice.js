@@ -8,14 +8,14 @@
  * Service in the destinyApp.
  */
 angular.module('destinyApp')
-  .service('DestinyService', function ($http, $q, APIKEY, PLATFORMURL) {
+  .service('DestinyService', function ($http, $q, APIKEY, PLATFORM_URL) {
 
     var logPrefix = 'DestinyService: ';
 
     function get (endpoint, params) {
 
-        var deferred = $q.defer();
-        var url = PLATFORMURL + endpoint;
+        var defer = $q.defer();
+        var url = PLATFORM_URL + endpoint;
 
         var config = {
             headers: {
@@ -25,16 +25,14 @@ angular.module('destinyApp')
         };
 
         $http.get(url, config)
-            .then(
-                function successCallback(response) {
-                    deferred.resolve(response);
-                },
-                function errorCallback(response) {
-                    deferred.resolve(response);
-                }
-            );
+            .success(function (data, status) {
+                defer.resolve(data);
+            })
+            .error(function (data, status) {
+                defer.reject('HTTP Error: ' + status);
+            });
 
-        return deferred.promise;
+        return defer.promise;
 
     }
 
@@ -66,11 +64,11 @@ angular.module('destinyApp')
         },
 
         /**
-         * @name activityHistory
+         * @name characterActivityHistory
          * @description /Stats/ActivityHistory/{membershipType}/{destinyMembershipId}/{characterId}/
          * @returns {Promise}
          */
-        activityHistory: function (membershipType, membershipId, characterId) {
+        characterActivityHistory: function (membershipType, membershipId, characterId) {
 
             var params = {
                 mode: 'Story',
@@ -94,17 +92,21 @@ angular.module('destinyApp')
          */
         characterSummary: function (membershipType, membershipId, characterId) {
 
-            var _membershipType = getMembershipType(membershipType);
-            var _promise = get(_membershipType + '/Account/' + membershipId + '/Character/' + characterId + '/');
+            var promise = get(getMembershipType(membershipType) + '/Account/' + membershipId + '/Character/' + characterId + '/');
 
-            return _promise;
+            return promise.then(function success(response) {
+                // this is will you will process and add to a Character service
+                console.log(response);
+                response.test = 'Ryan Test!!!';
+                return response;
+            });
 
         },
 
         /**
          * @name characterStats
          * @description /Stats/{membershipType}/{destinyMembershipId}/{characterId}/
-         * @return {[type]} [description]
+         * @returns {Promise}
          */
         characterStats: function (membershipType, membershipId, characterId) {
 
@@ -115,6 +117,10 @@ angular.module('destinyApp')
 
         },
 
+        /**
+         * [statsDefinition description]
+         * @returns {Promise}
+         */
         statsDefinition: function () {
 
             var _promise = get('/Stats/Definition/');
@@ -143,14 +149,9 @@ angular.module('destinyApp')
          *     https://www.bungie.net/platform/destiny/help/HelpDetail/GET?uri=%7bmembershipType%7d%2fStats%2fGetMembershipIdByDisplayName%2f%7bdisplayName%7d%2f
          * @returns {Promise}
          */
-        getMembershipIdByDisplayName: function (params) {
-
-            var membershipType = params.membershipType;
-            var displayName = params.displayName;
-
+        getMembershipIdByDisplayName: function (membershipType, displayName) {
             var promise = get(membershipType + '/Stats/GetMembershipIdByDisplayName/' + displayName + '/');
             return promise;
-
         }
 
     };
